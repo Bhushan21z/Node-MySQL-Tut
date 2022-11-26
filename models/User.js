@@ -1,9 +1,10 @@
 const db = require("../config/db");
 
-class Post {
-  constructor(title, body) {
-    this.title = title;
-    this.body = body;
+class User {
+  constructor(name, email, password) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
   }
 
   save() {
@@ -15,14 +16,16 @@ class Post {
     let createdAtDate = `${yyyy}-${mm}-${dd}`;
 
     let sql = `
-    INSERT INTO posts(
-      title,
-      body,
+    INSERT INTO users(
+      name,
+      email,
+      password,
       created_at
     )
     VALUES(
-      '${this.title}',
-      '${this.body}',
+      '${this.name}',
+      '${this.email}',
+      '${this.password}',
       '${createdAtDate}'
     )
     `;
@@ -31,16 +34,16 @@ class Post {
   }
 
   static findAll() {
-    let sql = "SELECT * FROM posts;";
+    let sql = "SELECT * FROM users;";
 
     return db.execute(sql);
   }
 
   static findById(id) {
-    let sql = `SELECT * FROM posts WHERE id = ${id};`;
+    let sql = `SELECT * FROM users WHERE id = ${id};`;
 
     return db.execute(sql);
   }
 }
 
-module.exports = Post;
+module.exports = User;
